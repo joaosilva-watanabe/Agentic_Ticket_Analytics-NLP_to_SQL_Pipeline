@@ -1,0 +1,25 @@
+# Sistema Operacional
+.DS_Store
+Thumbs.db
+
+# Configurações do Editor
+.vscode/
+
+# Ambientes Virtuais e Cache 
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Segurança
+.env
+
+# Dados brutos (Ingestão)
+*.csv
+*.xlsx
+
+# Bancos de Dados Locais 
+*.db
+*.sqlite
+*.sqlite3
