@@ -4,7 +4,7 @@ from typing import List, Tuple
 from models import ProcessedTicket
 
 logger = logging.getLogger(__name__)
-DB_NAME = "banco_bancario.db"
+DB_NAME = "banking_tickets.db"
 
 def setup_database(db_path: str = DB_NAME) -> None:
     """Creates the raw data and processed data (LLM) tables."""
