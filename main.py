@@ -3,6 +3,7 @@ import time
 import os
 import json
 import logging
+from pydantic import ValidationError
 
 # Nossas importações modulares
 from models import ProcessedTicket
@@ -34,23 +35,28 @@ def worker_process_pending() -> None:
     
     for ticket_id, client_text in tickets:
         try:
+            # 1. Hit the API
             json_data = extract_information_via_api(client_text, current_model)
             
             if isinstance(json_data, str):
                 json_data = json.loads(json_data)
                 
-            processed_ticket = ProcessedTicket(
-                category=json_data.get("category", "Desconhecida"),
-                involved_value=json_data.get("involved_value"),
-                sentiment=json_data.get("sentiment", "Neutro")
-            )
+            # 2. Validate in the Data Contract (PYDANTIC)
+            processed_ticket = ProcessedTicket(**json_data)
             
+            # 3. Save the LLM response in the llm_analyses table
             insert_llm_analysis(ticket_id, processed_ticket, current_model)
             update_ticket_status(ticket_id, "CONCLUIDO")
             logger.info(f"Ticket {ticket_id} processed successfully!")
             
+        except ValidationError as ve:
+            # Pydantic caught a LLM hallucination.
+            logger.error(f"Pydantic Validation Error in ticket {ticket_id}: {ve}")
+            update_ticket_status(ticket_id, "ERRO")
+            
         except json.JSONDecodeError:
-            logger.error(f"JSON error in ticket {ticket_id}.")
+            # The LLM returned malformed JSON.
+            logger.error(f"JSON Parsing Error in ticket {ticket_id}.")
             update_ticket_status(ticket_id, "ERRO")
             
         except Exception as e:
