@@ -5,7 +5,7 @@ import json
 import logging
 from pydantic import ValidationError
 
-# Nossas importações modulares
+# Our modular imports 
 from models import ProcessedTicket
 from database import (
     setup_database, 
@@ -16,7 +16,7 @@ from database import (
 )
 from extractor import extract_information_via_api
 
-# Configuração global de logs
+# Global logging configuration
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
@@ -72,7 +72,7 @@ def worker_process_pending() -> None:
 def ingest_data_from_csv(file_path: str) -> None:
     # Checks if the file exists. If not, logs and exits.
     if not os.path.exists(file_path):
-        logger.info(f"Nenhum arquivo novo para ingerir. Pulando etapa: {file_path}")
+        logger.info(f"No new files to ingest. Skipping step: {file_path}")
         return
 
     logger.info(f"--- STARTING INGESTION OF FILE: {file_path} ---")
@@ -93,7 +93,7 @@ def ingest_data_from_csv(file_path: str) -> None:
     # Rename the processed file to avoid reprocessing - ensure idempotency
     processed_path = file_path.replace(".csv", "_processado.csv")
     os.rename(file_path, processed_path)
-    logger.info(f"Arquivo arquivado como '{processed_path}' para evitar duplicidade.")
+    logger.info(f"File archived as '{processed_path}' to avoid duplication.")
 
 if __name__ == "__main__":
     setup_database()

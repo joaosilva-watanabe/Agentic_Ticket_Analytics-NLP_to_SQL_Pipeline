@@ -9,7 +9,7 @@ from agent import ask_database
 from main import ingest_data_from_csv, worker_process_pending
 
 # PAGE CONFIGURATION
-st.set_page_config(page_title="Banking AI Assistant", page_icon="🏦", layout="wide")
+st.set_page_config(page_title="Agentic Ticket Analytics | NLP-to-SQL Pipeline", page_icon="🏦", layout="wide")
 DB_NAME = "banking_tickets.db"
 
 # DATA EXTRACTION (CACHED)
@@ -33,7 +33,7 @@ def load_overview_data():
         return pd.DataFrame()
 
 # UI LAYOUT & TABS
-st.title("🏦 AI Ticket Intelligence")
+st.title("🏦 Agentic Ticket Analytics")
 st.markdown("Analyze customer complaints, upload new batches, or ask natural language questions.")
 
 # Creates the 2 tabs exactly as you requested
@@ -44,7 +44,7 @@ with tab1:
     df = load_overview_data()
     
     if df.empty:
-        st.info("No processed data available yet. Please upload a file in the next tab.")
+        st.info("No processed data available yet.")
     else:
         # Fixed KPIs
         col1, col2, col3 = st.columns(3)
