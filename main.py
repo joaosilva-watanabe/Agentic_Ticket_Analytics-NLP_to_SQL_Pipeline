@@ -94,7 +94,7 @@ def ingest_data_from_csv(file_path: str) -> None:
     processed_path = file_path.replace(".csv", "_processado.csv")
     os.rename(file_path, processed_path)
     logger.info(f"File archived as '{processed_path}' to avoid duplication.")
-
+ 
 if __name__ == "__main__":
     setup_database()
     
