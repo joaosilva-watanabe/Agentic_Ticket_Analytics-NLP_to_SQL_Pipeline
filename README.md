@@ -33,6 +33,16 @@ graph TD;
 - **Agentic Analytics (Text-to-SQL):** Integrated LLM agent capable of translating user questions in Portuguese into valid, secure SQLite queries.
 - **Interactive UI:** Streamlit-based web dashboard providing static KPIs, descriptive charts, and a dynamic AI chat assistant.
 
+
+## 📊 Live Dashboard & AI Agent
+
+**Overview Panel:** Provides high-level metrics and sentiment distribution.
+![Dashboard Overview](overview.png)
+
+**Agentic SQL Assistant:** Translates natural language into database queries instantly.
+![AI Chat in Action](ai_chat.gif)
+
+
 ## 🚀 How to Run Locally
 
 **1. Clone the repository**
